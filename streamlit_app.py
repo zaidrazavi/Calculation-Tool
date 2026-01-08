@@ -3,7 +3,7 @@ from logic import calculate
 
 st.set_page_config(
     page_title="Calculation Tool",
-    page_icon="🏠",
+    page_icon="",
     layout="centered"
 )
 
@@ -59,5 +59,6 @@ for idx, h in enumerate(history, 1):
             subtotal += amount
 
         st.markdown(f"**Subtotal:** ₹{subtotal:,}")
+
 
 
