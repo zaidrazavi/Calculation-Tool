@@ -16,7 +16,6 @@ BHK_RANGES = {
         "Bathroom & Plumbing": (70000, 100000),
         "Appliances": (150000, 200000),
         "Curtains / Blinds": (40000, 60000),
-        # minimum practical service
         "Deep Cleaning & Installation": (23000, 50000),
     },
     "2BHK": {
@@ -46,7 +45,7 @@ BHK_RANGES = {
 }
 
 # =========================================================
-# EXCEL ORDER (STRICT OUTPUT ORDER)
+# STRICT OUTPUT ORDER (EXCEL STYLE)
 # =========================================================
 
 ITEM_ORDER = [
@@ -69,24 +68,7 @@ ITEM_ORDER = [
 history = deque(maxlen=5)
 
 # =========================================================
-# HELPERS
-# =========================================================
-
-def normalize_bhk(raw_input: str) -> str:
-    raw = raw_input.strip().lower().replace(" ", "")
-    if raw in ["1", "1bhk"]:
-        return "1BHK"
-    if raw in ["2", "2bhk"]:
-        return "2BHK"
-    if raw in ["3", "3bhk"]:
-        return "3BHK"
-    raise ValueError("Invalid BHK. Enter 1, 2, 3 or 1BHK / 2BHK / 3BHK")
-
-# =========================================================
 # CORE LOGIC
-# - Auto-select feasible items
-# - 100% budget utilization
-# - Values end with 000 by DESIGN (not blind rounding)
 # =========================================================
 
 def allocate_budget_flexible(bhk: str, budget: int) -> dict:
@@ -96,7 +78,7 @@ def allocate_budget_flexible(bhk: str, budget: int) -> dict:
     selected = []
     remaining = budget
 
-    # Step 1: select feasible items with minimum assignment
+    # STEP 1: Select feasible items with minimum allocation
     for item, (low, high) in items:
         if remaining >= low:
             selected.append((item, low, high))
@@ -105,7 +87,7 @@ def allocate_budget_flexible(bhk: str, budget: int) -> dict:
     if not selected:
         raise ValueError("Budget too low for any interior work")
 
-    # Step 2: work in thousands (design-based)
+    # STEP 2: Work in thousands (design logic)
     total_thousands = budget // 1000
     remainder = budget % 1000
 
@@ -114,36 +96,44 @@ def allocate_budget_flexible(bhk: str, budget: int) -> dict:
     allocation_k = {}
     remaining_k = total_thousands
 
-    # Assign minimum first (in thousands)
+    # Assign minimum first
     for item, low_k, _ in mins:
         allocation_k[item] = low_k
         remaining_k -= low_k
 
-    # Distribute remaining (except last item)
+    # Distribute remaining randomly (except last item)
     for item, low_k, high_k in mins[:-1]:
         max_extra = min(high_k - low_k, remaining_k)
         extra = random.randint(0, max_extra)
         allocation_k[item] += extra
         remaining_k -= extra
 
-    # Last item absorbs everything
+    # Last item absorbs all remaining
     last_item = mins[-1][0]
     allocation_k[last_item] += remaining_k
 
     # Convert back to rupees
     allocation = {item: allocation_k[item] * 1000 for item in allocation_k}
 
-    # Add remainder only to last item
+    # Add remainder (₹ not divisible by 1000) to last item
     allocation[last_item] += remainder
 
-    return allocation
+    # STEP 3: FORCE STRICT OUTPUT ORDER
+    ordered_allocation = {}
+    for item in ITEM_ORDER:
+        if item in allocation:
+            ordered_allocation[item] = allocation[item]
+
+    return ordered_allocation
 
 def calculate(budget: int, bhk: str) -> dict:
     allocation = allocate_budget_flexible(bhk, budget)
+
     record = {
         "BHK": bhk,
         "Budget": budget,
         "Breakdown": allocation
     }
+
     history.appendleft(record)
     return record
