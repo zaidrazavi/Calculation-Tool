@@ -7,7 +7,7 @@ st.set_page_config(
     layout="centered"
 )
 
-st.title("Free Ka Maal")
+st.title("Calculation Tool")
 st.write("Enter budget and select BHK. Cost will be auto-distributed.")
 
 # INPUTS
@@ -59,6 +59,7 @@ for idx, h in enumerate(history, 1):
             subtotal += amount
 
         st.markdown(f"**Subtotal:** ₹{subtotal:,}")
+
 
 
 
