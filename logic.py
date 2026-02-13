@@ -7,40 +7,43 @@ from collections import deque
 
 BHK_RANGES = {
     "1BHK": {
-        "Modular Kitchen": (250000, 300000),
-        "Wardrobe & Storage": (180000, 230000),
-        "Furniture": (150000, 200000),
-        "Electrical & Lighting": (70000, 100000),
-        "Painting & Wall Finish": (60000, 90000),
-        "False Ceiling & POP": (70000, 100000),
-        "Bathroom & Plumbing": (70000, 100000),
-        "Appliances": (150000, 200000),
-        "Curtains / Blinds": (40000, 60000),
-        "Deep Cleaning & Installation": (23000, 50000),
+        "Modular Kitchen Work": (70000, 100000),
+"Wardrobe & Storage Units": (150000, 200000),
+"Home Furniture Items": (23000, 50000),
+"Electrical & Lighting Setup": (250000, 300000),
+"Painting & Wall Finishes": (180000, 230000),
+"False Ceiling & POP Work": (40000, 60000),
+"Bathroom & Plumbing Work": (60000, 90000),
+"Home Appliances Setup": (70000, 100000),
+"Curtains and Blinds": (150000, 200000),
+"Deep Cleaning & Installation Charges": (70000, 100000),
+
     },
     "2BHK": {
-        "Modular Kitchen": (300000, 350000),
-        "Wardrobe & Storage": (250000, 300000),
-        "Furniture": (200000, 260000),
-        "Electrical & Lighting": (90000, 120000),
-        "Painting & Wall Finish": (80000, 110000),
-        "False Ceiling & POP": (90000, 120000),
-        "Bathroom & Plumbing": (90000, 120000),
-        "Appliances": (200000, 260000),
-        "Curtains / Blinds": (60000, 80000),
-        "Deep Cleaning & Installation": (23000, 60000),
+        "Modular Kitchen": (90000, 120000),
+"Wardrobe & Storage": (200000, 260000),
+"Furniture": (60000, 80000),
+"Electrical & Lighting": (300000, 350000),
+"Painting & Wall Finish": (23000, 60000),
+"False Ceiling & POP": (250000, 300000),
+"Bathroom & Plumbing": (80000, 110000),
+"Appliances": (90000, 120000),
+"Curtains / Blinds": (200000, 260000),
+"Deep Cleaning & Installation": (90000, 120000),
+
     },
     "3BHK": {
-        "Modular Kitchen": (350000, 400000),
-        "Wardrobe & Storage": (300000, 360000),
-        "Furniture": (260000, 330000),
-        "Electrical & Lighting": (110000, 150000),
-        "Painting & Wall Finish": (100000, 140000),
-        "False Ceiling & POP": (110000, 150000),
-        "Bathroom & Plumbing": (110000, 150000),
-        "Appliances": (260000, 330000),
-        "Curtains / Blinds": (80000, 100000),
-        "Deep Cleaning & Installation": (23000, 70000),
+        "Modular Kitchen": (110000, 150000),
+"Wardrobe & Storage": (260000, 330000),
+"Furniture": (80000, 100000),
+"Electrical & Lighting": (350000, 400000),
+"Painting & Wall Finish": (23000, 70000),
+"False Ceiling & POP": (300000, 360000),
+"Bathroom & Plumbing": (100000, 140000),
+"Appliances": (110000, 150000),
+"Curtains / Blinds": (260000, 330000),
+"Deep Cleaning & Installation": (110000, 150000),
+
     }
 }
 
@@ -137,3 +140,4 @@ def calculate(budget: int, bhk: str) -> dict:
 
     history.appendleft(record)
     return record
+
