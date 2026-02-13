@@ -2,12 +2,12 @@ import streamlit as st
 from logic import calculate
 
 st.set_page_config(
-    page_title="Free Ka Maal",
+    page_title="Calculation Tool",
     page_icon="",
     layout="centered"
 )
 
-st.title("Calculation Tool")
+st.title("Free Ka Maal")
 st.write("Enter budget and select BHK. Cost will be auto-distributed.")
 
 # INPUTS
@@ -59,6 +59,7 @@ for idx, h in enumerate(history, 1):
             subtotal += amount
 
         st.markdown(f"**Subtotal:** ₹{subtotal:,}")
+
 
 
 
